@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Chat</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <div class="logo">AI Chat</div>
+                <button id="new-chat-btn" class="new-chat-btn">
+                    <span class="material-icons">add</span> Новый чат
+                </button>
+            </div>
+            <div class="chat-history">
+                <!-- Chat history items will be loaded here -->
+            </div>
+            <div class="sidebar-footer">
+                <button id="clear-history-btn" class="clear-history-btn">
+                    <span class="material-icons">delete</span> Очистить историю
+                </button>
+                <button id="theme-toggle-btn" class="theme-toggle-btn">
+                    <span class="material-icons">brightness_4</span>
+                </button>
+            </div>
+        </aside>
+
+        <!-- Main chat area -->
+        <main class="chat-main">
+            <header class="chat-header">
+                <h2 id="current-chat-title">Новый чат</h2>
+            </header>
+            <div class="chat-messages" id="chat-messages">
+                <!-- Chat messages will be displayed here -->
+            </div>
+            <div class="chat-input-panel">
+                <textarea id="message-input" placeholder="Введите ваше сообщение..." rows="1"></textarea>
+                <button id="clear-input-btn" class="icon-btn">
+                    <span class="material-icons">close</span>
+                </button>
+                <button id="send-btn" class="icon-btn send-btn">
+                    <span class="material-icons">send</span>
+                </button>
+            </div>
+            <div id="typing-indicator" class="typing-indicator">
+                <span class="material-icons">waving_hand</span> Нейросеть печатает...
+            </div>
+        </main>
+    </div>
+
+    <script src="script.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script>hljs.highlightAll();</script>
+</body>
+</html>
