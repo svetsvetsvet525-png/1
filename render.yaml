@@ -1,0 +1,13 @@
+services:
+  - type: web
+    name: ai-chat-app
+    env: node
+    buildCommand: npm install
+    startCommand: npm start
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: GROQ_API_KEY
+        sync: false  # Будет задана вручную в панели Render
+    autoDeploy: true
+    healthCheckPath: /api/health

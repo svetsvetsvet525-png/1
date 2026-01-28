@@ -29,39 +29,31 @@ function formatMessage(text) {
     return formattedText;
 }
 
+// Обновленная функция для вызова API через бэкенд
 async function callGroqAPI(userMessage) {
-    const API_ENDPOINT = "https://api.groq.com/openai/v1/chat/completions";
-
     try {
-        const response = await fetch(API_ENDPOINT, {
+        const response = await fetch('/api/chat', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                'Authorization': `Bearer ${GROQ_API_KEY}`
             },
             body: JSON.stringify({
-                messages: [{
-                    role: "user",
-                    content: userMessage,
-                }],
-                model: "llama-3.3-70b-versatile", // Using Llama 3.3 70B as requested
+                message: userMessage
             })
         });
 
         if (!response.ok) {
             const errorData = await response.json();
-            console.error('API Error:', errorData);
-            return `Извините, произошла ошибка при получении ответа от нейросети: ${errorData.error.message || response.statusText}`;
+            console.error('Server Error:', errorData);
+            return `Извините, произошла ошибка: ${errorData.error || response.statusText}`;
         }
 
         const data = await response.json();
-        // Extract the actual text from the Groq API response
-        const groqResponseText = data.choices && data.choices[0] && data.choices[0].message && data.choices[0].message.content;
-        return groqResponseText ? groqResponseText : 'Не удалось получить читаемый ответ от нейросети.';
+        return data.response;
 
     } catch (error) {
         console.error('Fetch Error:', error);
-        return 'Извините, произошла сетевая ошибка или проблема с API.';
+        return 'Извините, произошла сетевая ошибка.';
     }
 }
 
@@ -80,9 +72,6 @@ const currentChatTitle = document.getElementById('current-chat-title');
 // Current chat state
 let currentChatId = null;
 let chats = {}; // { chatId: { title: "...", messages: [...] } }
-
-// API Key (for demonstration purposes only - in a real app, handle securely on backend)
-const GROQ_API_KEY = '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'; // Replace with your actual Groq API Key (starts with sk_)
 
 // Load theme preference
 document.addEventListener('DOMContentLoaded', () => {
